@@ -1,0 +1,16 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": false,
+    
+    "attendance": {
+      "$date": {
+        "$period": {
+          "$uuid": {
+            ".write": "auth != null"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "attendance": {
+    "20_09_2025": {
+      "period6": {
+        "adc1f00d-1234-5678-9abc-def123456789": {
+          "first_seen": 1758391313,
+          "last_seen": 1758391341,
+          "status": "present"
+        }
+      }
+    },
+    "21_09_2025": {
+      "period3": {
+        "adc1f00d-1234-5678-9abc-def123456789": {
+          "first_seen": 1758438738,
+          "last_seen": 1758438860,
+          "status": "present"
+        }
+      }
+    },
+    "22_09_2025": {
+      "period1": {
+        "adc1f00d-1234-5678-9abc-def123456789": {
+          "first_seen": 1758517412,
+          "last_seen": 1758518514,
+          "status": "present"
+        }
+      },
+      "period2": {
+        "adc1f00d-1234-5678-9abc-def123456789": {
+          "first_seen": 1758517515,
+          "last_seen": 1758519468,
+          "status": "present"
+        }
+      },
+      "period3": {
+        "adc1f00d-1234-5678-9abc-def123456789": {
+          "first_seen": 1758523751,
+          "last_seen": 1758523853,
+          "status": "present"
+        }
+      },
+      "period4": {
+        "adc1f00d-1234-5678-9abc-def123456789": {
+          "first_seen": 1758530379,
+          "last_seen": 1758530379,
+          "status": "present"
+        }
+      },
+      "period6": {
+        "adc1f001-1234-5678-9abc-def123456789": {
+          "first_seen": 1758536996,
+          "last_seen": 1758538151,
+          "status": "pending"
+        },
+        "adc1f00d-1234-5678-9abc-def123456789": {
+          "first_seen": 1758535608,
+          "last_seen": 1758538095,
+          "status": "present"
+        }
+      }
+    }
+  },
+  "periods": {
+    "period1": "MFC",
+    "period2": "DPSD",
+    "period3": "DPSD",
+    "period4": "CM",
+    "period5": "CD",
+    "period6": "CD"
+  },
+  "students": {
+    "adc1f001-1234-5678-9abc-def123456789": {
+      "batch": "BATCH",
+      "dept": "DEPT",
+      "name": "NAME",
+      "reg_no": "REG-NO"
+    },
+    "adc1f002-1234-5678-9abc-def123456789": {
+      "batch": "BATCH",
+      "dept": "DEPT",
+      "name": "NAME",
+      "reg_no": "REG-NO"
+    }
+  },
+  "users": {
+    "adc1f001-1234-5678-9abc-def123456789": {
+      "email": "EMAIL",
+      "password": "PASSWORD"
+    },
+    "adc1f002-1234-5678-9abc-def123456789": {
+      "email": "EMAIL",
+      "password": "PASSWORD"
+    }
+  }
+}
