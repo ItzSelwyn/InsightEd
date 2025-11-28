@@ -9,10 +9,10 @@
 #include <vector>
 
 // Wi-Fi and Firebase credentials
-#define WIFI_SSID "Redmi 9"
-#define WIFI_PASSWORD "Selwyn2008"
-#define API_KEY "AIzaSyA32iyfvHacyRjKu_khdBqJxFilN5mvFF0"
-#define DATABASE_URL "https://ble-attendance-adcd1-default-rtdb.asia-southeast1.firebasedatabase.app/"
+#define WIFI_SSID "YOUR_WIFI"
+#define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
+#define API_KEY "YOUR_API_KEY"
+#define DATABASE_URL "YOUR_DATABASE_URL"
 
 // Firebase objects
 FirebaseData fbdo;
