@@ -32,7 +32,7 @@ fun CalendarScreen(
     onProfileClick: () -> Unit
 ) {
     val minMonth = YearMonth.of(2025, 8)
-    val maxMonth = YearMonth.of(2026, 1)
+    val maxMonth = YearMonth.of(2026, 4)
 
     var currentYearMonth by remember { mutableStateOf(YearMonth.now().coerceIn(minMonth, maxMonth)) }
 
@@ -43,7 +43,10 @@ fun CalendarScreen(
         YearMonth.of(2025, 10) to setOf(6,7,9,10,11,13,14,15,16,17,23,24,25,27,28,29,31),
         YearMonth.of(2025, 11) to setOf(3,4,5,6,7,8,11,12,13,14,17,18,20,21,22,24,25,26,27,28,29),
         YearMonth.of(2025, 12) to setOf(1,2,3,4,5,9,10,11,12,13,15,16,17,18,19,22,23,24,26,27,29,30,31),
-        YearMonth.of(2026, 1) to setOf(5,6,7,8,9,10,12,13,19,20,21,22,23,24,27,28,29,30,31),
+        YearMonth.of(2026, 1) to setOf(5,6,7,8,9,19,20,21,22,23,24,27,28,29,30,31),
+        YearMonth.of(2026, 2) to setOf(2,3,4,5,6,7,9,10,11,12,13,14,16,17,18,19,20,23,24,25,27,28),
+        YearMonth.of(2026, 3) to setOf(2,3,4,5,6,7,9,10,11,12,13,14,16,17,18,23,25,26,27,28,30),
+        YearMonth.of(2026, 4) to setOf(1,2,4,6,7,8,9,10,11,15,16,20,22,24,25,27,28,29,30),
         // Add for each month...
     )
     val holidaysMap = mapOf(
@@ -52,7 +55,10 @@ fun CalendarScreen(
         YearMonth.of(2025, 10) to setOf(1,2,3,4,5,12,18,19,20,21,22,26),
         YearMonth.of(2025, 11) to setOf(1,2,9,15,16,23,30),
         YearMonth.of(2025, 12) to setOf(6,7,14,20,21,25,28),
-        YearMonth.of(2026, 1) to setOf(1,2,3,4,11,14,15,16,17,18,25,26),
+        YearMonth.of(2026, 1) to setOf(1,2,3,4,10,11,12,13,14,15,16,17,18,25,26),
+        YearMonth.of(2026, 2) to setOf(1,8,15,21,22),
+        YearMonth.of(2026, 3) to setOf(1,8,15,19,20,21,22,29),
+        YearMonth.of(2026, 4) to setOf(3,5,12,13,14,19,26),
         // ...
     )
     val examsEventsMap = mapOf(
@@ -62,6 +68,9 @@ fun CalendarScreen(
         YearMonth.of(2025, 11) to setOf(10,19),
         YearMonth.of(2025, 12) to setOf(8),
         YearMonth.of(2026, 1) to setOf(),
+        YearMonth.of(2026, 2) to setOf(26),
+        YearMonth.of(2026, 3) to setOf(24),
+        YearMonth.of(2026, 4) to setOf(17,18,21,23),
 
         // ...
     )
