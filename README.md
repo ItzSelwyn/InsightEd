@@ -1,85 +1,134 @@
-**📘 BLE Attendance System (InsightEd)**
+# InsightEd: BLE Attendance System
 
-Bluetooth Low Energy (BLE) Attendance System, where every student’s phone becomes a secure digital identity. An ESP32 device inside the classroom scans BLE packets, validates UUIDs, and pushes the data to Firebase for instant attendance monitoring.
+InsightEd is a Bluetooth Low Energy (BLE)-based attendance system where each student device advertises a unique UUID, an ESP32 scanner detects it inside the classroom, and attendance is written to Firebase in real time.
 
-Bluetooth Low Energy (BLE)–powered automatic attendance system built using:
+## What This Project Contains
 
-• Android App (Kotlin) – broadcasts a unique BLE UUID
-• ESP32 Scanner (C++/Arduino) – detects student UUIDs inside the classroom
-• Firebase Realtime Database – stores attendance logs in real time
+- `InsightEd-App/`: Android app (Kotlin + Compose) that advertises a BLE service UUID.
+- `esp32/`: ESP32 firmware (Arduino/C++) that scans BLE advertisements and logs attendance.
+- `Firebase/`: Realtime Database rules and sample data structure.
 
-This project removes manual attendance, prevents proxy marking, and provides a fast, automatic, low-energy solution for classroom attendance.
+## Key Features
 
-**🚀 Features**
+- Automatic BLE-based attendance capture
+- UUID-based student identification
+- Real-time Firebase Realtime Database updates
+- `first_seen` and `last_seen` timestamp tracking
+- Attendance status derivation (`pending` or `present`)
 
-• Automatic BLE-based attendance
-• UUID identification per student
-• ESP32 low-energy BLE scanning
-• Real-time Firebase updates
-• First_seen / last_seen tracking
-• Attendance status (pending/present)
+## System Flow
 
-**📱 Android App – BLE UUID Advertiser**
+1. Student opens the Android app on a real device.
+2. App starts foreground BLE advertising with a unique service UUID.
+3. ESP32 scans advertisements and filters UUIDs (prefix `ADC1`/`adc1`).
+4. ESP32 timestamps detections for the active class period.
+5. ESP32 writes attendance data to Firebase.
+6. Dashboard or mobile clients read attendance in real time.
 
-The Android app broadcasts a unique BLE service UUID.
-When a student enters the classroom with Bluetooth on, their device quietly transmits this UUID.
+## Repository Structure
 
-Highlights:
+```text
+InsightEd/
+	README.md
+	InsightEd-App/               # Android app (BLE advertiser)
+	esp32/
+		BLE-code/BLE-code.ino      # ESP32 scanner firmware
+	Firebase/
+		rules.json                 # Firebase Realtime DB security rules
+		example-structure.json     # Sample database shape
+```
 
-• Kotlin-based BLE advertiser
-• Foreground service for stable advertising
-• Secure UUID generation
-• Permissions handled cleanly
-• Lightweight UI
+## Prerequisites
 
-Full project inside:
-/InsightEd-App
+### Android App
 
-**🔌 ESP32 BLE Scanner**
+- Android Studio (latest stable)
+- Android SDK (configured via `local.properties`)
+- Physical Android device (BLE advertising is unreliable in emulators)
 
-The ESP32 listens for BLE packets matching your UUID prefix (ADC1xxxx).
-When detected:
+### ESP32 Scanner
 
-• Checks if the UUID was already seen
-• Logs first_seen timestamp
-• Updates last_seen
-• Computes attendance status
-• Writes data to Firebase in real time
+- ESP32 development board
+- Arduino IDE with ESP32 board package
+- Libraries:
+	- `Firebase ESP Client` (Mobizt)
+	- `ESP32 BLE Arduino` (Espressif)
 
-The example firmware uses placeholder credentials.
-Replace them locally before uploading.
+### Backend
 
-Full code inside:
-/esp32
+- Firebase project with Realtime Database enabled
 
-**☁️ Firebase Realtime Database**
+## Missing Files and Secrets You Must Provide
 
-Used for:
+Some files and values are intentionally local/private. If they are absent in your clone, create/provide them before running.
 
-• Attendance storage
-• Period mapping
-• Student info
-• Optional users list for dashboards
+| Path | Needed For | Required Action |
+|---|---|---|
+| `InsightEd-App/local.properties` | Android Gradle build | Set local SDK path, for example `sdk.dir=C:\\Users\\<you>\\AppData\\Local\\Android\\Sdk` |
+| `InsightEd-App/app/google-services.json` | Firebase config in Android app | Download from Firebase Console and place in this path |
+| `esp32/BLE-code/BLE-code.ino` constants | ESP32 runtime connectivity | Replace placeholders: `WIFI_SSID`, `WIFI_PASSWORD`, `API_KEY`, `DATABASE_URL` |
 
-✔ Public Read
-Anyone can read database data
+### ESP32 Placeholder Block to Replace
 
-✔ Protected Write
+```cpp
+#define WIFI_SSID "YOUR_WIFI"
+#define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
+#define API_KEY "YOUR_API_KEY"
+#define DATABASE_URL "YOUR_DATABASE_URL"
+```
 
-Only authenticated devices (ESP32 via anonymous auth) can write.
+## Firebase Setup
 
+1. Create/select a Firebase project.
+2. Enable Realtime Database.
+3. Apply rules from `Firebase/rules.json`.
+4. Optionally import `Firebase/example-structure.json` to seed `students`, `periods`, and sample `attendance`.
+5. Ensure anonymous auth is enabled if ESP32 uses anonymous sign-up.
 
-See:
+## Run Guide
 
-/firebase/rules.json
+### 1. Run Android BLE Advertiser
 
-🧠 How the System Works
+1. Open `InsightEd-App/` in Android Studio.
+2. Ensure `local.properties` and `app/google-services.json` are present.
+3. Sync Gradle.
+4. Install and run on a physical phone.
+5. Grant Bluetooth/location permissions when prompted.
 
-1. Student opens the Android BLE app
-2. Phone advertises a unique service UUID
-3. ESP32 BLE scanner detects UUIDs
-4. ESP32 timestamps and verifies UUIDs
-5. Writes attendance → Firebase
-6. Dashboard/app can read attendance instantly
+### 2. Flash and Run ESP32 Scanner
 
-This architecture is lightweight, scalable, and requires no manual input.
+1. Open `esp32/BLE-code/BLE-code.ino` in Arduino IDE.
+2. Install required board package/libraries.
+3. Replace Wi-Fi and Firebase placeholders.
+4. Upload to ESP32.
+5. Open Serial Monitor to confirm Wi-Fi, NTP sync, BLE detections, and Firebase writes.
+
+## Database Shape (Summary)
+
+Main attendance path:
+
+```text
+attendance/{dd_mm_yyyy}/{period}/{uuid}/
+	first_seen: <unix_timestamp>
+	last_seen: <unix_timestamp>
+	status: "pending" | "present"
+```
+
+## Security Note
+
+- Current rules allow public read and authenticated write under `attendance`.
+- For production use, tighten read access and add role-based write restrictions.
+
+## Troubleshooting
+
+- App build fails with Google Services error:
+	- Confirm `InsightEd-App/app/google-services.json` exists and matches your Firebase project.
+- ESP32 cannot write to Firebase:
+	- Verify `API_KEY`, `DATABASE_URL`, and that Firebase auth/rules allow the write path.
+- No BLE detections:
+	- Check phone Bluetooth permissions and ensure advertised UUID prefix matches scanner filter (`ADC1`/`adc1`).
+
+## Notes
+
+- `InsightEd-App/build/` contains generated artifacts and should not be used as source.
+- Keep secrets out of version control and rotate keys if exposed.
