@@ -32,7 +32,7 @@ InsightEd/
 	README.md
 	InsightEd-App/               # Android app (BLE advertiser)
 	esp32/
-		BLE-code/BLE-code.ino      # ESP32 scanner firmware
+		BLE-code/BLE-code-sample.ino      # ESP32 scanner firmware
 	Firebase/
 		rules.json                 # Firebase Realtime DB security rules
 		example-structure.json     # Sample database shape
@@ -66,7 +66,7 @@ Some files and values are intentionally local/private. If they are absent in you
 |---|---|---|
 | `InsightEd-App/local.properties` | Android Gradle build | Set local SDK path, for example `sdk.dir=C:\\Users\\<you>\\AppData\\Local\\Android\\Sdk` |
 | `InsightEd-App/app/google-services.json` | Firebase config in Android app | Download from Firebase Console and place in this path |
-| `esp32/BLE-code/BLE-code.ino` constants | ESP32 runtime connectivity | Replace placeholders: `WIFI_SSID`, `WIFI_PASSWORD`, `API_KEY`, `DATABASE_URL` |
+| `esp32/BLE-code/BLE-code-sample.ino` constants | ESP32 runtime connectivity | Replace placeholders: `WIFI_SSID`, `WIFI_PASSWORD`, `API_KEY`, `DATABASE_URL` |
 
 ### ESP32 Placeholder Block to Replace
 
@@ -97,7 +97,7 @@ Some files and values are intentionally local/private. If they are absent in you
 
 ### 2. Flash and Run ESP32 Scanner
 
-1. Open `esp32/BLE-code/BLE-code.ino` in Arduino IDE.
+1. Open `esp32/BLE-code/BLE-code-sample.ino` in Arduino IDE.
 2. Install required board package/libraries.
 3. Replace Wi-Fi and Firebase placeholders.
 4. Upload to ESP32.
